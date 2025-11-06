@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/Manoj-SK24/student-mark-mak.git'
+                git 'https://github.com/Manoj-SK24/student-mark-management.git'
             }
         }
 
