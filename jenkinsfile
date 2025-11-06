@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/YOUR_USERNAME/student-mark-management.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t student-mark-management .'
+                }
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    sh 'docker run -d -p 8080:80 --name student_mark_app student-mark-management'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment Successful! Access the app at http://localhost:8081'
+        }
+    }
+}

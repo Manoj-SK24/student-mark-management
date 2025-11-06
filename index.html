@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Mark Management</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Student Mark Management System</h1>
+
+    <!-- Feature 1: Add Student Marks -->
+    <form id="markForm">
+      <input type="text" id="studentName" placeholder="Student Name" required />
+      <input type="number" id="studentMark" placeholder="Marks (0-100)" required />
+      <button type="submit">Add Marks</button>
+    </form>
+
+    <!-- Feature 2: Display Marks + Calculate Average -->
+    <div id="results">
+      <h2>Student Marks</h2>
+      <ul id="markList"></ul>
+      <h3 id="averageMark">Average: 0</h3>
+    </div>
+  </div>
+
+  <script>
+    const markForm = document.getElementById('markForm');
+    const markList = document.getElementById('markList');
+    const averageMark = document.getElementById('averageMark');
+    const marks = [];
+
+    markForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('studentName').value;
+      const mark = parseInt(document.getElementById('studentMark').value);
+
+      if (mark >= 0 && mark <= 100) {
+        marks.push(mark);
+        const li = document.createElement('li');
+        li.textContent = `${name}: ${mark}`;
+        markList.appendChild(li);
+        const avg = marks.reduce((a, b) => a + b, 0) / marks.length;
+        averageMark.textContent = `Average: ${avg.toFixed(2)}`;
+      } else {
+        alert('Please enter a mark between 0 and 100.');
+      }
+
+      markForm.reset();
+    });
+  </script>
+</body>
+</html>
