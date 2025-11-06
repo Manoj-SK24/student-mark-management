@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/YOUR_USERNAME/student-mark-management.git'
+                git 'https://github.com/Manoj-SK24/student-mark-mak.git'
             }
         }
 
@@ -16,10 +16,13 @@ pipeline {
             }
         }
 
-        stage('Run Docker Container') {
+        stage('Run Docker Container on 8081') {
             steps {
                 script {
-                    sh 'docker run -d -p 8080:80 --name student_mark_app student-mark-management'
+                    // stop and remove old container if running
+                    sh 'docker rm -f student_mark_app || true'
+                    // run new container mapped to port 8081
+                    sh 'docker run -d -p 8081:80 --name student_mark_app student-mark-management'
                 }
             }
         }
@@ -27,7 +30,7 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment Successful! Access the app at http://localhost:8081'
+            echo '✅ Deployment Successful! Access your app at http://localhost:8081'
         }
     }
 }
